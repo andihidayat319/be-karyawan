@@ -11,10 +11,24 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      table_department.hasMany(models.table_jabatan, {
+        foreignKey: "id_department"
+      })
     }
   };
   table_department.init({
-    nama_department: DataTypes.STRING
+    nama_department: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "nama_department cannot Empty"
+        },
+        notNull: {
+          msg: "nama_department cannot null"
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'table_department',

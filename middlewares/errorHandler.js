@@ -1,5 +1,4 @@
-function errorHandler(error, res) {
-    
+function errorHandler(error, req, res, next) {
     if (error.name === "SequelizeValidationError") {
         const messages = error.errors.map(el => {
             return el.message
@@ -13,7 +12,7 @@ function errorHandler(error, res) {
         })
     } else if(error.name === "Not Found"){
         res.status(404).json({
-            messages: "error not found"
+            messages: "Error Not Found"
         })
     } else if (error.name === "SequelizeUniqueConstraintError") {
         const messages = error.errors.map(el => {
@@ -27,6 +26,7 @@ function errorHandler(error, res) {
             messages: 'Internal Server Error'
         })
     }
+    console.log(error);
 }
 
 module.exports = errorHandler

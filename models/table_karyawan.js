@@ -11,11 +11,36 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      table_karyawan.belongsTo(models.table_jabatan, {
+        foreignKey: "id_jabatan"
+      })
     }
   };
   table_karyawan.init({
-    name: DataTypes.STRING,
-    id_jabatan: DataTypes.INTEGER,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "nama cannot Empty"
+        },
+        notNull: {
+          msg: "nama cannot null"
+        }
+      }
+    },
+    id_jabatan: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "id_jabatan cannot Empty"
+        },
+        notNull: {
+          msg: "id_jabatan cannot null"
+        }
+      }
+    },
     age: DataTypes.INTEGER,
     gender: DataTypes.STRING,
     tanggal_lahir: DataTypes.STRING,
